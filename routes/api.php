@@ -17,9 +17,7 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::group(['middleware'=>'auth:sanctum'],function(){
-    Route::get('/currentuser', function (Request $request) {
-        return $request->user();
-    });
+    Route::get('/currentuser',[\App\Http\Controllers\UserController::class, 'getCurrentUser']);
 
     Route::get('/messages',[\App\Http\Controllers\MessageController::class, 'index'])->name('messages.index');
 

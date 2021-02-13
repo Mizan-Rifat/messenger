@@ -1,5 +1,7 @@
 import React from 'react';
 import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
+import useSessionUser from '../customHooks/useSessionUser';
+import Loading from '../components/custom/Loading';
 
 const theme = createMuiTheme({
     palette: {
@@ -37,9 +39,16 @@ const theme = createMuiTheme({
 
 export default function CustomTheme(props) {
 
+    const { user, fetching } = useSessionUser();
+
     return (
         <ThemeProvider theme={theme}>
-            {props.children}
+            {
+                fetching ?
+                <Loading />
+                :
+                props.children
+            }
         </ThemeProvider>
     );
 }

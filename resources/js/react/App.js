@@ -8,7 +8,6 @@ import CustomTheme from "./assets/CustomTheme";
 
 export default function App() {
 
-    console.log('sadf')
     return (
         <Provider store={store}>
             <CustomTheme>
