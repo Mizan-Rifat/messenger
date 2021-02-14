@@ -3,7 +3,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import clsx from 'clsx';
 import StatusDropdown from '../../custom/StatusDropdown';
 import VertMenuBtn from '../../custom/VertMenuBtn';
-import Avatar from '../../custom/Avatar'
+import Avatar from '../../custom/Avatar';
+import { useSelector } from 'react-redux';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -54,8 +55,12 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-export default function ContactIListItem({ active, profile }) {
+export default function ContactIListItem({ active, profile ,user }) {
     const classes = useStyles();
+
+    // const {user} = useSelector(state => state.sessionUser)
+
+    // console.log({user})
 
     return (
         <div className={clsx(classes.root, {
@@ -69,7 +74,7 @@ export default function ContactIListItem({ active, profile }) {
 
             <div className={classes.details}>
 
-                <h6 className={classes.name}>Phillip Torff</h6>
+                <h6 className={classes.name}>{user.name}</h6>
                 {
                     profile ?
                         <StatusDropdown />

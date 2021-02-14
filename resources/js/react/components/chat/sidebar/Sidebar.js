@@ -3,6 +3,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Scrollbars } from 'react-custom-scrollbars';
 import ContactIListItem from './ContactIListItem';
 import SidebarFooter from './SidebarFooter';
+import useContacts from '../../../customHooks/useContacts';
+import { useSelector } from 'react-redux';
 
 const useStyles = makeStyles((theme) => ({
 
@@ -25,11 +27,17 @@ const useStyles = makeStyles((theme) => ({
 export default function Sidebar() {
     const classes = useStyles();
 
+
+    const { user } = useSelector(state => state.sessionUser)
+    const { contacts, fetching } = useContacts();
+
+    console.log({contacts})
+
     return (
         <div className={classes.sidebar}>
 
             <div>
-                <ContactIListItem profile />
+                <ContactIListItem profile user={user} />
             </div>
 
 
@@ -39,18 +47,18 @@ export default function Sidebar() {
                 >
 
                     <div className="" style={{ padding: 10 }} >
-                        <ContactIListItem />
-                        <ContactIListItem active />
-                        <ContactIListItem />
-                        <ContactIListItem />
-                        <ContactIListItem />
-                        <ContactIListItem />
-                        <ContactIListItem />
-                        <ContactIListItem />
-                        <ContactIListItem />
-                        <ContactIListItem />
-                        <ContactIListItem />
-                        <ContactIListItem />
+
+
+                        {
+                            fetching ? 'loading' :
+                            contacts.filter(contact=>contact.id != user.id).map(contact => (
+                                <ContactIListItem 
+                                    user={contact}
+                                    key={contact.id}
+                                />
+                            ))
+                        }
+
                     </div>
 
                 </Scrollbars>
